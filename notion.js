@@ -61,26 +61,8 @@ function submitReview({ movieTitle, genre, review, rating }) {
   });
 }
 
-// let genres = [];
-
 module.exports = {
   getGenres, // Export the getGenres function
   notionPropertiesById,
   submitReview,
 };
-
-
-// getGenres().then((value) => {
-//   value.forEach(function (item) {
-//     genres.push(item.name);
-//     });
-//     // console.log(genres)
-//   });
-
-
-// submitReview({
-//   movieTitle: "Barbie 2",
-//   genre: "Drama",
-//   review: "Not as good as the first",
-//   rating: 7.6,
-// });
