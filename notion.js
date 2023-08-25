@@ -8,7 +8,18 @@ async function getGenres() {
     database_id: process.env.NOTION_DATABASE_ID,
   });
 
-  console.log(database.properties.Genre.multi_select);
+  return notionPropertiesById(database.properties)[
+    process.env.NOTION_GENRE_ID
+  ].select.options.map((option) => {
+    return { id: option.id, name: option.name };
+  });
+}
+
+function notionPropertiesById(properties) {
+  return Object.values(properties).reduce((obj, property) => {
+    const { id, ...rest } = property;
+    return { ...obj, [id]: rest };
+  }, {});
 }
 
 function submitReview({ movieTitle, genre, review, rating }) {
@@ -18,11 +29,9 @@ function submitReview({ movieTitle, genre, review, rating }) {
     },
     properties: {
       Genre: {
-        multi_select: [
-          {
-            name: genre,
-          },
-        ],
+        select: {
+          name: genre,
+        },
       },
       Review: {
         rich_text: [
@@ -52,12 +61,26 @@ function submitReview({ movieTitle, genre, review, rating }) {
   });
 }
 
-getGenres();
+// let genres = [];
+
+module.exports = {
+  getGenres, // Export the getGenres function
+  notionPropertiesById,
+  submitReview,
+};
+
+
+// getGenres().then((value) => {
+//   value.forEach(function (item) {
+//     genres.push(item.name);
+//     });
+//     // console.log(genres)
+//   });
+
 
 // submitReview({
-//   movieTitle: "Barbie",
-//   genre: "Comedy",
-//   review:
-//     "I liked it. It was fun and a great commentary on modern gender roles",
+//   movieTitle: "Barbie 2",
+//   genre: "Drama",
+//   review: "Not as good as the first",
 //   rating: 7.6,
 // });
