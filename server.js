@@ -10,8 +10,9 @@ app.use(express.urlencoded({ extended: true }))
 const { getPopulatedGenresArray } = require('./genresProvider'); // Import the new module
 
 getPopulatedGenresArray().then(genres => {
-    app.get("/", (req, res) => {
-      res.render("index", { genres: genres }); 
+    app.get("/", async (req, res) => {
+      const reviews = await notion.getReviews()
+      res.render("index", { genres: genres, reviews: reviews }); 
   });
 });
 

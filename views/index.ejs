@@ -12,8 +12,9 @@
     />
   </head>
   <body>
+    <img src="" alt="">
     <div class="container my-4">
-      <h1>CL Movie Reviews</h1>
+      <h1 style="text-align: center;">CL Movie Reviews</h1>
       <form action="/submit-review" method="POST" class="border-bottom">
         <div class="row">
           <div class="col-12 col-md mb-3">
@@ -60,6 +61,26 @@
           <button type="submit" class="btn btn-primary mb-3">Submit Review</button>
         </div>
       </form>
+      <div class="row g-3 mt-3">
+        <% console.log(reviews) %>
+        <% reviews.forEach(function(review) { %>
+          <% if (review) { %>
+
+          <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+            <div class="card">
+              <div class="card-header d-flex justify-content-between align-items-center">
+                <div><%= review.movieTitle %></div>
+                <div class="badge rounded-pill bg-secondary"><%= review.genre %></div>
+              </div>
+              <div class="card-body">
+                <p><%= review.review %></p>
+                <div style="color: black;" class="badge rounded-pill bg-warning"><%= review.rating %></div>
+              </div>
+            </div>
+          </div>
+          <% } %>
+        <% }) %>
+      </div>
     </div>
   </body>
 </html>
