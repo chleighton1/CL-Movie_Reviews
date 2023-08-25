@@ -70,7 +70,6 @@ async function getReviews() {
   return notionPages.results.map(fromNotionObject)
 }
 
-
 function fromNotionObject(notionPage) {
   console.log("Processing Notion page:", notionPage);
 
